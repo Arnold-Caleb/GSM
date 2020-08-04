@@ -13,8 +13,6 @@ namespace GSMLib
 {
     public class GSM
     {
-        public List<Dictionary<string, string>> allMessages = new List<Dictionary<string, string>>();
-        public Dictionary<string,string> messageInfo = new Dictionary<string, string>();
 
         /* Call this method to send a message */
         public void SendMessage(string cellNumber, string smsMessage)
@@ -60,9 +58,10 @@ namespace GSMLib
         {
             string storage = GetMessageStorage();
 
+            List<Dictionary<string, string>> allMessages = new List<Dictionary<string, string>>();
+            Dictionary<string,string> messageInfo = new Dictionary<string, string>();
             
-            
-            switch (idenfier)
+            switch (identifier)
             {
                 case "All":
                     try
@@ -72,9 +71,9 @@ namespace GSMLib
                         foreach(DecodedShortMessage message in messages)
                         {
                             messageInfo = MessageDetails(message.Data);
-                            messageInfo.Add("storage", message.Storage);
-                            messsgeInfo.Add("index", message.Index);
-                            messageInfo.Add("status", message.Status);
+                            messageInfo.Add("storage", Convert.ToString(message.Storage));
+                            messageInfo.Add("index", Convert.ToString(message.Index));
+                            messageInfo.Add("status", Convert.ToString(message.Status));
 
                             allMessages.Add(messageInfo);				
                         }
@@ -95,9 +94,9 @@ namespace GSMLib
                         foreach(DecodedShortMessage message in messages)
                         {
                             messageInfo = MessageDetails(message.Data);
-                            messageInfo.Add("storage", message.Storage);
-                            messsgeInfo.Add("index", message.Index);
-                            messageInfo.Add("status", message.Status);
+                            messageInfo.Add("storage", Convert.ToString(message.Storage));
+                            messageInfo.Add("index", Convert.ToString(message.Index));
+                            messageInfo.Add("status", Convert.ToString(message.Status));
 
                             allMessages.Add(messageInfo);				
                         }
@@ -118,9 +117,9 @@ namespace GSMLib
                         foreach(DecodedShortMessage message in messages)
                         {
                             messageInfo = MessageDetails(message.Data);
-                            messageInfo.Add("storage", message.Storage);
-                            messsgeInfo.Add("index", message.Index);
-                            messageInfo.Add("status", message.Status);
+                            messageInfo.Add("storage", Convert.ToString(message.Storage));
+                            messageInfo.Add("index", Convert.ToString(message.Index));
+                            messageInfo.Add("status", Convert.ToString(message.Status));
 
                             allMessages.Add(messageInfo);				
                         }
@@ -141,9 +140,9 @@ namespace GSMLib
                         foreach(DecodedShortMessage message in messages)
                         {
                             messageInfo = MessageDetails(message.Data);
-                            messageInfo.Add("storage", message.Storage);
-                            messsgeInfo.Add("index", message.Index);
-                            messageInfo.Add("status", message.Status);
+                            messageInfo.Add("storage", Convert.ToString(message.Storage));
+                            messageInfo.Add("index", Convert.ToString(message.Index));
+                            messageInfo.Add("status", Convert.ToString(message.Status));
 
                             allMessages.Add(messageInfo);			
                         }
@@ -164,10 +163,9 @@ namespace GSMLib
                         foreach(DecodedShortMessage message in messages)
                         {
                             messageInfo = MessageDetails(message.Data);
-                            messageInfo.Add("storage", message.Storage);
-                            messsgeInfo.Add("index", message.Index);
-                            messageInfo.Add("status", message.Status);
-
+                            messageInfo.Add("storage", Convert.ToString(message.Storage));
+                            messageInfo.Add("index", Convert.ToString(message.Index));
+                            messageInfo.Add("status", Convert.ToString(message.Status));
                             allMessages.Add(messageInfo);				
                         }
 
@@ -207,15 +205,15 @@ namespace GSMLib
 
         private Dictionary<string, string> MessageDetails(SmsPdu pdu)
 		{
-            Dictionary<string, string> messageDetails = Dictionary<string, string>();
+            Dictionary<string, string> messageDetails = new Dictionary<string, string>();
 
 			if (pdu is SmsSubmitPdu)
 			{
 				// Stored (sent/unsent) message
 				SmsSubmitPdu data = (SmsSubmitPdu)pdu;
 
-				string recipient = Convert.ToString(data.DestinationAddress);
-				string message = Convert.ToString(data.UserDataText);
+				string recipient = data.DestinationAddress.ToString();
+				string message = data.UserDataText.ToString();
 
                 messageDetails.Add("recipient", recipient);
                 messageDetails.Add("message", message);
@@ -228,7 +226,7 @@ namespace GSMLib
 				SmsDeliverPdu data = (SmsDeliverPdu)pdu;
 
 				string sender = data.OriginatingAddress.ToString();
-                string timeStamp = data.OriginatingSCTimestamp.ToString();
+                string timeStamp = data.SCTimestamp.ToString();
                 string message = data.UserDataText.ToString();
 
                 messageDetails.Add("sender", sender);
