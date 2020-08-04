@@ -15,6 +15,15 @@ namespace GSMLib
     {
 
         /* Call this method to send a message */
+        /// <summary>
+        /// Method for sending message basing on phone number and sms message
+        /// <summary/>
+        /// <param name="cellNumber">
+        /// A string of the phone number to send the message to
+        /// <param/>
+        /// <param name="smsMessage">
+        /// A string of the text Message to send to the phone number
+        /// <param/>
         public void SendMessage(string cellNumber, string smsMessage)
         {
             
@@ -54,6 +63,22 @@ namespace GSMLib
         }
 
         /* Call this method to recieve messages */
+        /// <summary>
+        /// Method returns a list of dictionaries containing information regarding the sms received
+        /// </summary>
+        /// <param name="identifier">
+        /// Identifier can be a string of values 
+        /// All - Returns a List of dictionaries of information pertaining all the SMS received
+        /// Read - Returns a List of dictionaries of information pertaining the read SMSs
+        /// Unread - Returns a List of dictionaries of information pertaining the unread SMSs
+        /// Sent - Returns a List of dictionaries of information pertaining the send SMSs
+        /// Unsent - Returns a List of dictionaries of information pertaining the unsent SMSs
+        /// </param>
+        /// <returns>
+        /// A list containing a dictionary of information regarding each text Message
+        /// keys vary with the type of identifier used
+        /// <seealso cref="MessageDetails" />
+        /// <returns/>
         public List<Dictionary<string, string>> ReceiveMessages(string identifier)
         {
             string storage = GetMessageStorage();
