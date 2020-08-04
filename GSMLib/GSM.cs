@@ -55,12 +55,12 @@ namespace GSMLib
         }
 
         /* Call this method to recieve messages */
-        public List<List<string>> ReceiveMessages(string identifier)
+        public List<Dictionary<string, string>> ReceiveMessages(string identifier)
         {
             string storage = GetMessageStorage();
 
-            List<List<string>> allMessages = new List<List<string>>();
-            List<string> messageInfo = new List<string>();
+            List<Dictionary<string, string>> allMessages = new List<Dictionary<string, string>>();
+            Dictionary<string,string> messageInfo = new Dictionary<string, string>();
             
             switch (idenfier)
             {
@@ -71,9 +71,9 @@ namespace GSMLib
 
                         foreach(DecodedShortMessage message in messages)
                         {
-                            messageInfo.Add(message.Status);
-                            messageInfo.Add(String.Format("Location: {0}/{1}", message.Storage, message.Index));
-                            messageInfo.Add(MessageDetails(message.Data));
+                            messageInfo = MessageDetails(message.Data);
+                            messageInfo.Add("storageLocation", String.Format("Location: {0}/{1}", message.Storage, message.Index));
+                            messageInfo.Add("status", message.Status);
 
                             allMessages.Add(messageInfo);				
                         }
@@ -93,9 +93,9 @@ namespace GSMLib
 
                         foreach(DecodedShortMessage message in messages)
                         {
-                            messageInfo.Add(message.Status);
-                            messageInfo.Add(String.Format("Location: {0}/{1}", message.Storage, message.Index));
-                            messageInfo.Add(MessageDetails(message.Data));
+                            messageInfo = MessageDetails(message.Data);
+                            messageInfo.Add("storageLocation", String.Format("Location: {0}/{1}", message.Storage, message.Index));
+                            messageInfo.Add("status", message.Status);
 
                             allMessages.Add(messageInfo);				
                         }
@@ -115,9 +115,9 @@ namespace GSMLib
 
                         foreach(DecodedShortMessage message in messages)
                         {
-                            messageInfo.Add(message.Status);
-                            messageInfo.Add(String.Format("Location: {0}/{1}", message.Storage, message.Index));
-                            messageInfo.Add(MessageDetails(message.Data));
+                            messageInfo = MessageDetails(message.Data);
+                            messageInfo.Add("storageLocation", String.Format("Location: {0}/{1}", message.Storage, message.Index));
+                            messageInfo.Add("status", message.Status);
 
                             allMessages.Add(messageInfo);				
                         }
@@ -137,11 +137,11 @@ namespace GSMLib
                         
                         foreach(DecodedShortMessage message in messages)
                         {
-                            messageInfo.Add(message.Status);
-                            messageInfo.Add(String.Format("Location: {0}/{1}", message.Storage, message.Index));
-                            messageInfo.Add(MessageDetails(message.Data));
+                            messageInfo = MessageDetails(message.Data);
+                            messageInfo.Add("storageLocation", String.Format("Location: {0}/{1}", message.Storage, message.Index));
+                            messageInfo.Add("status", message.Status);
 
-                            allMessages.Add(messageInfo);				
+                            allMessages.Add(messageInfo);			
                         }
 
                     }
@@ -159,9 +159,9 @@ namespace GSMLib
 
                         foreach(DecodedShortMessage message in messages)
                         {
-                            messageInfo.Add(message.Status);
-                            messageInfo.Add(String.Format("Location: {0}/{1}", message.Storage, message.Index));
-                            messageInfo.Add(MessageDetails(message.Data));
+                            messageInfo = MessageDetails(message.Data);
+                            messageInfo.Add("storageLocation", String.Format("Location: {0}/{1}", message.Storage, message.Index));
+                            messageInfo.Add("status", message.Status);
 
                             allMessages.Add(messageInfo);				
                         }
@@ -174,13 +174,16 @@ namespace GSMLib
                     }
                     break;
                 default:
-                    string err = String.Format("Unknown Indentifier '{0}'", indentifier);
+                    string err = String.Format("Unknown Identifier '{0}'", identifier);
 
-                    messageInfo.Add(err);
-                    allMessages.Add(err);
+                    messageInfo.Add("Error", "Unknown Identifier");
+                    
+                    allMessages.Add(messageInfo);
                     break;
 
-            }           
+            }
+
+            return allMessages;           
         }
               
 
