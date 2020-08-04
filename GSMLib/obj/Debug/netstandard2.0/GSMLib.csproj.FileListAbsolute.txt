@@ -1,0 +1,4 @@
+/home/arnold/DoctorsArch/GSM/GSMLib/obj/Debug/netstandard2.0/GSMLib.csprojAssemblyReference.cache
+/home/arnold/DoctorsArch/GSM/GSMLib/obj/Debug/netstandard2.0/GSMLib.AssemblyInfoInputs.cache
+/home/arnold/DoctorsArch/GSM/GSMLib/obj/Debug/netstandard2.0/GSMLib.AssemblyInfo.cs
+/home/arnold/DoctorsArch/GSM/GSMLib/obj/Debug/netstandard2.0/GSMLib.csproj.CoreCompileInputs.cache
